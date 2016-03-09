@@ -1,0 +1,27 @@
+create a new repository on the command line
+
+echo "# Homeworks" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/EmiliaPavlova/Homeworks.git   /initializes the  directory to a github repo
+git remote remove origin // removes the initialized repo 
+git push -u origin master
+
+
+Add existing project to Github 
+$ cd my_project
+$ git init
+$ git add *
+$ git status
+$ git commit -m "First commit"
+$ git remote add origin https://github.com/yourname/my_project.git
+$ git pull origin master
+$ git push origin master
+
+
+git clone https://github.com/EmiliaPavlova/Homework-Introduction-to-Java.git
+git add <filename|.>		<--Adds a new file to the repository
+git commit -m "Enter a message" <-- Updates the local repository with local files
+git push 			<-- Updates the online repository from local repository
+git pull			<-- Updates the local repository from online repository
