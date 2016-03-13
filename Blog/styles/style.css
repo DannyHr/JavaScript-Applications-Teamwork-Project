@@ -17,7 +17,7 @@ header, footer {
 header {
     width: auto;
     height: 300px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     position: relative;
     border-bottom: 2px solid #000;
 }
@@ -47,16 +47,35 @@ header h1 {
     left: 10px;
 }
 
-section {
+main {
     width: 1000px;
     margin: 0 auto;
     background-color: #fff;
-    display: inline-block;
     text-align: left;
+}
+
+#login {
+    float: right;
+    margin-right: 20px;
+}
+
+#login a {
+    padding-left: 10px;
+    color: #707070;
+}
+
+#login a:hover {
+    color: #000;
+}
+
+section {
+    width: 100%;
+    display: inline-block;
 }
 
 nav {
     width: 20%;
+    height: 100%;
     padding: 0px 10px;
     display: inline-block;
     vertical-align: top;
@@ -71,6 +90,7 @@ nav div {
 input[type="search"] {
     width: 150px;
     height: 24px;
+    padding: 5px;
     border: 1px solid #999;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
@@ -79,10 +99,7 @@ input[type="search"] {
 #search {
     width: 24px;
     height: 24px;
-    background-color: white;
-    background-image: url("../images/magnifying_glass.png");
-    background-position: center 2px;
-    background-repeat: no-repeat;
+    background: url("../images/magnifying_glass.png") no-repeat center 2px #fff;
     background-size: contain;
     border: 1px solid #999;
     border-left: none;
@@ -97,6 +114,7 @@ button:hover {
 }
 
 input[type="search"]:focus,
+#add-post input[type="text"],
 textarea:focus,
 button {
     outline: none;
@@ -131,6 +149,30 @@ article {
     display: inline-block;
 }
 
+
+#add-post {
+    width: 75%;
+    display: inline-block;
+}
+
+#add-post label {
+    font-size: 1.5em;
+}
+
+#add-post input[type="text"] {
+    width: 100%;
+    margin: 20px 0px;
+    padding: 10px;
+    font-size: 1.5em;
+    border: 1px solid #999;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+#add-post textarea {
+    height: 500px;
+}
+
 h2 {
     font-family: 'Merienda', cursive;
     font-size: 2em;
@@ -150,7 +192,7 @@ article > p {
 
 #add-comment {
     float: right;
-    margin-top: 30px;
+    margin-top: 20px;
     padding: 20px;
     width: 75%;
     display: block;
@@ -161,6 +203,7 @@ textarea {
     height: 100px;
     border: 1px solid #999;
     border-radius: 3px;
+    box-sizing: border-box;
 }
 
 button {
@@ -177,7 +220,7 @@ button {
 
 footer {
     height: 200px;
-    margin-top: 50px;
+    margin-top: 20px;
     border-top: 2px solid #000;
 }
 
