@@ -7,7 +7,16 @@ var app = app || {};
         });
 
         this.get('#/login', function () {
-            showLoginMenu(selector);
+           // showLoginMenu(selector);
+            $('#main-container').empty().load('templates/login.html', null, function () {
+                $('#login-button').on('click', function () {
+                    var username = $('#login-username').val();
+                    var password = $('#login-password').val();
+                    app.data.users.login(username,password);
+                    $('#main-container').empty().load('index.html');//TODO: need fix
+                });
+             //
+            });
         });
 
         this.get('#/register', function () {
