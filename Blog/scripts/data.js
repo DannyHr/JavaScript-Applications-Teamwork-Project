@@ -159,7 +159,7 @@ var data = (function() {
                 'content': postContent,
             };
 
-            return app.ajaxRequester.post("https://baas.kinvey.com/appdata/" + appId + "/posts", data, credentials.getHeaders(true, true))
+            return app.ajaxRequester.post("https://baas.kinvey.com/appdata/" + appId + "/Posts", data, credentials.getHeaders(true, true))
                 .then(
                     function(response){
                         console.log("Success");
@@ -171,7 +171,7 @@ var data = (function() {
         }
 
         function getPostById(id){
-            return app.ajaxRequester.get("https://baas.kinvey.com/appdata/" + appId + "/posts" + id, null, credentials.getHeaders(true, true))
+            return app.ajaxRequester.get("https://baas.kinvey.com/appdata/" + appId + "/Posts/" + id, null, credentials.getHeaders(true, true))
                 .then(
                     function(response){
                         console.log("Success");
@@ -184,7 +184,7 @@ var data = (function() {
         }
 
         function getAllPosts(){
-            return app.ajaxRequester.get("https://baas.kinvey.com/appdata/" + appId + "/posts", credentials.getHeaders(true, true))
+            return app.ajaxRequester.get("https://baas.kinvey.com/appdata/" + appId + "/Posts", credentials.getHeaders(true, true))
                 .then(
                     function(response){
                         console.log("Success");

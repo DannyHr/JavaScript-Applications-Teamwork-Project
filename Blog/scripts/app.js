@@ -3,8 +3,12 @@ var app = app || {};
 (function () {
     app.router = Sammy(function () {
         this.get('#/', function () {
-            showHomeMenu(selector);
+            console.log('asdasdasd')
         });
+
+        this.bind('redirectURL', function (e, data) {
+            this.redirect(data.url);
+        })
 
         this.get('#/login', function () {
            // showLoginMenu(selector);
@@ -13,9 +17,8 @@ var app = app || {};
                     var username = $('#login-username').val();
                     var password = $('#login-password').val();
                     app.data.users.login(username,password);
-                    $('#main-container').empty().load('index.html');//TODO: need fix
+                    app.router.trigger('redirectURL', {url: '#/'});
                 });
-             //
             });
         });
 
