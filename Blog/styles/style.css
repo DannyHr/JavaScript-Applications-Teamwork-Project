@@ -190,6 +190,25 @@ article > p {
     text-align: justify;
 }
 
+#comments {
+    float: right;
+    margin-top: 20px;
+    padding: 20px;
+    width: 75%;
+    text-align: justify;
+    line-height: 1em;
+}
+
+#comments h5 {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#comments span {
+    font-style: italic;
+    color: #707070;;
+}
+
 #add-comment {
     float: right;
     margin-top: 20px;
