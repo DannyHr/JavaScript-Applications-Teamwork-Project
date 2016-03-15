@@ -1,100 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles/reset.css"/>
-    <link rel="stylesheet" href="styles/style.css"/>
-    <link href='https://fonts.googleapis.com/css?family=Merienda:400,700' rel='stylesheet' type='text/css'>
-    <title>Lovely Mondays Blog</title>
-    <script src="libs/jquery/dist/jquery.js"></script>
-    <script src="libs/q/q.js"></script>
-    <script src="libs/sammy/lib/min/sammy-0.7.6.min.js"></script>
-    <script src="libs/mustache/mustache.js"></script>
-    <script src="scripts/ajax-requester.js"></script>
-    <script src="scripts/data.js"></script>
-
-
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="styles/reset.css"/>
+	<link rel="stylesheet" href="styles/style.css"/>
+	<link href='https://fonts.googleapis.com/css?family=Merienda:400,700' rel='stylesheet' type='text/css'>
+	<title>Lovely Mondays Blog</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/q/q.js"></script>
+	<script src="libs/sammy/lib/min/sammy-0.7.6.min.js"></script>
+	<script src="libs/mustache/mustache.js"></script>
+	<script src="scripts/ajax-requester.js"></script>
+	<script src="scripts/data.js"></script>
 </head>
 <body>
 <div id="wrapper">
-    <header>
+	<header>
         <span>
             <img src="images/nav-poppies.jpg"/>
             <h1>Lovely Mondays</h1>
         </span>
-    </header>
+	</header>
 
-    <main>
-        <div id="login">
-            <a href="#/register">Sign up</a>
-            <a href="#">Log in</a>
-        </div>
+	<main>
+		<div id="login">
+			<a href="#/register">Sign up</a>
+			<a href="#">Log in</a>
+		</div>
 
-        <section>
-            <nav>
-                <div id="search-field">
-                    <input type="search" placeholder="Search..."/><!--
+		<section>
+			<nav>
+				<div id="search-field">
+					<input type="search" placeholder="Search..."/><!--
 					--><input type="button" id="search" value=" "/>
-                </div>
-                <div id="last-posts">
-                    <h6>Last posts</h6>
-                    <a href="#">first</a>
-                    <a href="#">second</a>
-                    <a href="#">third</a>
-                    <a href="#">forth</a>
-                    <a href="#">fifth</a>
-                    <a href="#">sixth</a>
-                    <a href="#">seventh</a>
-                    <a href="#">eight</a>
-                    <a href="#">ninth</a>
-                    <a href="#">tenth</a>
-                </div>
-                <div id="tags">
-                    <h6>Popular tags</h6>
-                    <a href="#">first</a>
-                    <a href="#">second</a>
-                    <a href="#">third</a>
-                    <a href="#">forth</a>
-                    <a href="#">fifth</a>
-                </div>
-            </nav>
+				</div>
+				<div id="last-posts">
+					<h6>Last posts</h6>
+					<a href="#">first</a>
+					<a href="#">second</a>
+					<a href="#">third</a>
+					<a href="#">forth</a>
+					<a href="#">fifth</a>
+					<a href="#">sixth</a>
+					<a href="#">seventh</a>
+					<a href="#">eight</a>
+					<a href="#">ninth</a>
+					<a href="#">tenth</a>
+				</div>
+				<div id="tags">
+					<h6>Popular tags</h6>
+					<a href="#">first</a>
+					<a href="#">second</a>
+					<a href="#">third</a>
+					<a href="#">forth</a>
+					<a href="#">fifth</a>
+				</div>
+			</nav>
 
-            <!--For admin only-->
-            <!--<article id="add-post"></article>-->
-            <!--<script>-->
-                <!--$('#add-post').load('templates/addPost.html', function() {-->
+			<div id="main-container" style="display: inline">
+				<!--For admin only-->
+				<!--<article id="add-post"></article>-->
+				<!--<script>-->
+				<!--$('#add-post').load('templates/addPost.html', function() {-->
 
-                <!--});-->
-            <!--</script>-->
+				<!--});-->
+				<!--</script>-->
 
-            <article id="posted"></article>
-            <script>
-                $('#posted').load('templates/post.html');
-            </script>
+				<article id="posted"></article>
+				<script>
+					$('#posted').load('templates/post.html');
+				</script>
 
-            <div id="comments"></div>
-            <script>
-                $('#comments').load('templates/comments.html');
-            </script>
+				<div id="comments"></div>
+				<script>
+					$('#comments').load('templates/comments.html');
+				</script>
 
-            <!--For logged users only-->
-            <div id="add-comment">
-                <h2>Add comment</h2>
-                <textarea></textarea>
-                <button type="submit">Submit</button>
-            </div>
-            <!---->
+				<!--For logged users only-->
+				<div id="add-comment">
+					<h2>Add comment</h2>
+					<textarea></textarea>
+					<button type="submit">Submit</button>
+				</div>
+				<!---->
+			</div>
 
-        </section>
-    </main>
+		</section>
+	</main>
 
-    <footer>
-        <div>
-            <img src="images/author.jpg"/>
-            <h2>About the author</h2>
-            <p><span>Admin Admin</span> is crazy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum convallis nisl vitae laoreet consectetur. Curabitur fermentum ipsum at dictum auctor. Nam ornare semper velit. Proin cursus, est eu congue bibendum, augue risus laoreet est, egestas malesuada erat lectus quis magna. Quisque bibendum justo vitae arcu mattis ultricies. Nunc imperdiet justo quis rutrum volutpat. Aliquam erat volutpat.</p>
-        </div>
-        </footer>
+	<footer>
+		<div>
+			<img src="images/author.jpg"/>
+			<h2>About the author</h2>
+			<p><span>Admin Admin</span> is crazy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+				convallis nisl vitae laoreet consectetur. Curabitur fermentum ipsum at dictum auctor. Nam ornare semper
+				velit. Proin cursus, est eu congue bibendum, augue risus laoreet est, egestas malesuada erat lectus quis
+				magna. Quisque bibendum justo vitae arcu mattis ultricies. Nunc imperdiet justo quis rutrum volutpat.
+				Aliquam erat volutpat.</p>
+		</div>
+	</footer>
 </div>
 <script src="scripts/app.js"></script>
 </body>

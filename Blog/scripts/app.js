@@ -2,8 +2,6 @@ var app = app || {};
 
 (function() {
     app.router = Sammy(function () {
-        var selector = '#wrapper';
-
         this.get('#/', function() {
             showHomeMenu(selector);
         });
@@ -13,7 +11,7 @@ var app = app || {};
         });
 
         this.get('#/register', function() {
-            $('main').empty().load('templates/register.html');
+            $('#main-container').empty().load('templates/register.html');
 
         });
 
