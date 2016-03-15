@@ -1,213 +1,211 @@
 var app = app || {};
 
-var data = (function() {
+var data = (function () {
+	var appId = 'kid_-19uDdP4y-';
+	var appSecret = '0fe0766a2dd747639ab970bf02ee732b';
 
-    var appId = 'kid_-19uDdP4y-';
-    var appSecret = '0fe0766a2dd747639ab970bf02ee732b';
+	var credentials = (function () {
 
-    var credentials = (function() {
+		function getHeaders(contentType, useSession) {
+			var headers = {};
 
-        function getHeaders(contentType, useSession) {
-            var headers = {};
+			if (contentType) {
+				headers['Content-Type'] = 'application/json';
+			}
 
-            if(contentType){
-                headers['Content-Type'] = 'application/json';
-            }
+			if (useSession) {
+				headers['Authorization'] = 'Kinvey ' + getSessionToken();
+			}
+			else {
+				headers['Authorization'] = 'Basic ' + btoa(appId + ':' + appSecret);
+			}
 
-            if(useSession){
-                headers['Authorization'] = 'Kinvey ' + getSessionToken();
-            }
-            else{
-                headers['Authorization'] = 'Basic ' + btoa(appId + ':' + appSecret);
-            }
+			return headers;
+		}
 
-            return headers;
-        }
+		function getSessionToken() {
+			return sessionStorage.getItem('sessionToken');
+		}
 
-        function getSessionToken() {
-            return sessionStorage.getItem('sessionToken');
-        }
+		function setSessionToken(sessionToken) {
+			sessionStorage.setItem('sessionToken', sessionToken);
+		}
 
-        function setSessionToken(sessionToken) {
-            sessionStorage.setItem('sessionToken', sessionToken);
-        }
+		function getUserId() {
+			return sessionStorage.getItem('userId');
+		}
 
-        function getUserId() {
-            return sessionStorage.getItem('userId');
-        }
+		function setUserId(userId) {
+			sessionStorage.setItem('userId', userId);
+		}
 
-        function setUserId(userId) {
-            sessionStorage.setItem('userId', userId);
-        }
+		function getUsername() {
+			return sessionStorage.getItem('username');
+		}
 
-        function getUsername() {
-            return sessionStorage.getItem('username');
-        }
+		function setUsername(username) {
+			sessionStorage.setItem('username', username);
+		}
 
-        function setUsername(username) {
-            sessionStorage.setItem('username', username);
-        }
+		function clearStorage() {
+			sessionStorage.clear();
+		}
 
-        function clearStorage() {
-            sessionStorage.clear();
-        }
+		return {
+			getHeaders: getHeaders,
+			getSessionToken: getSessionToken,
+			setSessionToken: setSessionToken,
+			getUserId: getUserId,
+			setUserId: setUserId,
+			getUsername: getUsername,
+			setUsername: setUsername,
+			clearStorage: clearStorage
+		}
 
-        return{
-            getHeaders : getHeaders,
-            getSessionToken: getSessionToken,
-            setSessionToken: setSessionToken,
-            getUserId: getUserId,
-            setUserId: setUserId,
-            getUsername: getUsername,
-            setUsername: setUsername,
-            clearStorage: clearStorage
-        }
+	})();
 
-    })();
+	var users = (function () {
+		function login(username, password) {
+			var data = {
+				'username': username,
+				'password': password
+			};
 
-    var users = (function() {
-        function login(username, password) {
-            var data = {
-                'username': username,
-                'password': password
-            };
+			return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId + "/login", data, credentials.getHeaders(true))
+				.then(
+					function (response) {
+						console.log("Success");
+						credentials.setSessionToken(response._kmd.authtoken);
+						credentials.setUsername(response.username);
+						credentials.setUserId(response._id);
+					},
+					function (response) {
+						console.log("Unsuccessful login!");
+					}
+				);
+		}
 
-            return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId + "/login", data, credentials.getHeaders(true))
-                .then(
-                    function(response) {
-                        console.log("Success");
-                        credentials.setSessionToken(response._kmd.authtoken);
-                        credentials.setUsername(response.username);
-                        credentials.setUserId(response._id);
-                    },
-                    function(response) {
-                        console.log("Unsuccessful login!");
-                    }
-                );
-        }
+		function register(username, password, fullName, aboutInfo, gender, permission_level) {
+			var data = {
+				'username': username,
+				'password': password,
+				'name': fullName,
+				'about': aboutInfo,
+				'gender': gender,
+				'permission_level': permission_level
+			};
 
-        function register(username, password, fullName, aboutInfo, gender, permission_level) {
-            var data = {
-                'username': username,
-                'password': password,
-                'name': fullName,
-                'about': aboutInfo,
-                'gender': gender,
-                'permission_level': permission_level
-            };
+			return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId, data, credentials.getHeaders(true))
+				.then(
+					function (response) {
+						console.log("Success");
+					},
+					function (response) {
+						console.log("Unsuccessful register!");
+					}
+				);
+		}
 
-            return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId, data, credentials.getHeaders(true))
-                .then(
-                    function(response){
-                        console.log("Success");
-                    },
-                    function(response){
-                        console.log("Unsuccessful register!");
-                    }
-                );
-        }
+		function editProfile() {
+			//TODO: IMPLEMENT ME
+		}
 
-        function editProfile() {
-            //TODO: IMPLEMENT ME
-        }
+		function getById(id) {
+			return app.ajaxRequester.get("https://baas.kinvey.com/user/" + appId + "/" + id, credentials.getHeaders(true, true))
+				.then(
+					function (response) {
+						console.log("Success");
+						console.log(response); // TODO: implement logic
+					},
+					function (response) {
+						console.log("Unsuccessful getting info!");
+					}
+				);
+		}
 
-        function getById(id) {
-            return app.ajaxRequester.get("https://baas.kinvey.com/user/" + appId + "/" + id, credentials.getHeaders(true, true))
-                .then(
-                    function(response){
-                        console.log("Success");
-                        console.log(response); // TODO: implement logic
-                    },
-                    function(response){
-                        console.log("Unsuccessful getting info!");
-                    }
-                );
-        }
+		function getCurrentUserData() {
+			return getById(credentials.getUserId());
+		}
 
-        function getCurrentUserData() {
-            return getById(credentials.getUserId());
-        }
+		function logout() {
+			return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId + "/_logout", null, credentials.getHeaders(false, true))
+				.then(
+					function (response) {
+						console.log("Success");
+						credentials.clearStorage();
+					},
+					function (response) {
+						console.log("Unsuccessfully logged out!");
+					}
+				);
+		}
 
-        function logout() {
-            return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId + "/_logout", null, credentials.getHeaders(false, true))
-                .then(
-                    function(response){
-                        console.log("Success");
-                        credentials.clearStorage();
-                    },
-                    function(response){
-                        console.log("Unsuccessfully logged out!");
-                    }
-                );
-        }
+		return {
+			login: login,
+			register: register,
+			editProfile: editProfile,
+			getById: getById,
+			getCurrentUserData: getCurrentUserData,
+			logout: logout
+		}
 
-        return{
-            login: login,
-            register: register,
-            editProfile: editProfile,
-            getById: getById,
-            getCurrentUserData: getCurrentUserData,
-            logout: logout
-        }
+	})();
 
-    })();
+	var posts = (function () {
+		function addPost(postContent) {
+			// TODO: add more properties in data
+			var data = {
+				'content': postContent
+			};
 
-    var posts = (function() {
+			return app.ajaxRequester.post("https://baas.kinvey.com/appdata/" + appId + "/Posts", data, credentials.getHeaders(true, true))
+				.then(
+					function (response) {
+						console.log("Success");
+					},
+					function (response) {
+						console.log("potato");
+					}
+				);
+		}
 
-        function addPost(postContent){
-            var data = {
-                'content': postContent,
-            };
+		function getPostById(id) {
+			return app.ajaxRequester.get("https://baas.kinvey.com/appdata/" + appId + "/Posts/" + id, credentials.getHeaders(true, true))
+				.then(
+					function (response) {
+						console.log("Success");
+						return response;
+					},
+					function (response) {
+						console.log("Couldn't load post by id");
+					}
+				);
+		}
 
-            return app.ajaxRequester.post("https://baas.kinvey.com/appdata/" + appId + "/posts", data, credentials.getHeaders(true, true))
-                .then(
-                    function(response){
-                        console.log("Success");
-                    },
-                    function(response){
-                        console.log("potato");
-                    }
-                );
-        }
+		function getAllPosts() {
+			return app.ajaxRequester.get("https://baas.kinvey.com/appdata/" + appId + "/Posts", credentials.getHeaders(true, true))
+				.then(
+					function (response) {
+						return response;
+					},
+					function (response) {
+						console.error("Couldn't load all posts");
+					}
+				);
+		}
 
-        function getPostById(id){
-            return app.ajaxRequester.get("https://baas.kinvey.com/appdata/" + appId + "/posts" + id, null, credentials.getHeaders(true, true))
-                .then(
-                    function(response){
-                        console.log("Success");
-                        console.log(response);
-                    },
-                    function(response){
-                        console.log("potato");
-                    }
-                );
-        }
+		return {
+			addPost: addPost,
+			getPostById: getPostById,
+			getAllPosts: getAllPosts
+		}
 
-        function getAllPosts(){
-            return app.ajaxRequester.get("https://baas.kinvey.com/appdata/" + appId + "/posts", credentials.getHeaders(true, true))
-                .then(
-                    function(response){
-                        console.log("Success");
-                        console.log(response);
-                    },
-                    function(response){
-                        console.log("potato");
-                    }
-                );
-        }
+	})();
 
-        return {
-            addPost: addPost,
-            getPostById: getPostById,
-            getAllPosts: getAllPosts
-        }
-
-    })();
-
-    return {
-        users: users,
-        posts: posts
-    }
+	return {
+		users: users,
+		posts: posts
+	}
 })();
 
 app.data = data;
