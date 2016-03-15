@@ -1,8 +1,9 @@
 <h6>Last posts</h6>
+
 <ul>
-    {{posts}}
-    <li>
-        {{posts.title}}
-    </li>
+    {{#posts}}
+    <a href="#">
+        {{title}}
+    </a>
     {{/posts}}
 </ul>
