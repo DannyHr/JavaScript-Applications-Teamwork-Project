@@ -256,3 +256,32 @@ footer div img {
     float: left;
     margin: 0px 40px;
 }
+
+form {
+    margin-top: 20px;
+}
+
+form fieldset legend {
+    margin-bottom: 20px;
+}
+
+form fieldset div {
+    margin: 5px 0px 20px;
+}
+
+form fieldset div input {
+    padding: 5px;
+    border: 1px solid #999;
+    border-radius: 3px;
+}
+
+form fieldset div input:focus {
+    outline: none;
+    border-color: #707070;
+    box-shadow: 0 0 10px #E1D6D4;
+}
+
+form fieldset div input[type="radio"],
+form fieldset div label {
+    margin-right: 5px;
+}
