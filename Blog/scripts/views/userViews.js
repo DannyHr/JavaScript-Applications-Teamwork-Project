@@ -58,5 +58,16 @@ app.userViews = (function () {
 		})
 	};
 
+	UserViews.prototype.showAddNewPost = function(selector){
+		$.get('templates/add-post.html', function (templ) {
+			$(selector).prepend(templ);
+			$('#add-post').on('click', function(e){
+				Sammy(function(){
+					this.trigger('redirectUrl', {url:'#/addPost'})
+				})
+			})
+		})
+	};
+
 	return UserViews;
 })();

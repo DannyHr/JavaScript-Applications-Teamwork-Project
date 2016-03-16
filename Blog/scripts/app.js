@@ -3,7 +3,8 @@ var app = app || {};
 (function () {
 	app.router = Sammy(function () {
 		var sideBar = '#all-posts',
-			mainContainer = '#main-container';
+			mainContainer = '#main-container',
+			addNewPostSelector = 'main>section>nav';
 
 		var requester = new app.ajaxRequester();
 		var authorizer = new app.authorizer('kid_-19uDdP4y-', '0fe0766a2dd747639ab970bf02ee732b');
@@ -18,11 +19,24 @@ var app = app || {};
 		var postController = new app.postController(postModel, postView, authorizer);
 
 		(function () {
+			userController.checkIsAdmin();
 			postController.showAllPosts(sideBar);
 		})();
 
 		this.get('#/', function () {
 			postController.showLastPost(mainContainer);
+		});
+
+		this.get('#/addPost', function () {
+			postController.showAddPost(mainContainer);
+		});
+
+		this.bind('addPost', function (e, data) {
+			postController.addPost(data);
+		});
+
+		this.bind('isAdmin', function (e, data) {
+			userController.showAddNewPost(addNewPostSelector);
 		});
 
 		this.bind('login', function (e, data) {

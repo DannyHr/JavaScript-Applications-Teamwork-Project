@@ -50,5 +50,11 @@ app.postViews = (function () {
 		});
 	};
 
+	PostViews.prototype.showAddPost = function (selector) {
+		$.get('templates/add-post-page.html', function (template) {
+			$(selector).html(template);
+		});
+	};
+
 	return PostViews;
 })();

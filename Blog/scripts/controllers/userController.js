@@ -86,12 +86,37 @@ app.userController = (function () {
 			).done();
 	};
 
+	UserController.prototype.checkIsAdmin = function () {
+		var _this = this;
+		this._model.getById(this._authorizer.getUserId())
+			.then(
+				function (response) {
+					console.log("Successfully checked if user is admin");
+					console.log(response);
+					if (response['permission_level'] === 1) {
+						Sammy(function () {
+							this.trigger('isAdmin');
+						});
+
+						//_this._viewBag.showAddNewPost(selector)
+					}
+				},
+				function (error) {
+					console.error("Couldn't check if user is admin!");
+				}
+			).done();
+	};
+
 	UserController.prototype.showLoginPage = function (selector) {
 		this._viewBag.showLoginPage(selector);
 	};
 
 	UserController.prototype.showRegisterPage = function (selector) {
 		this._viewBag.showRegisterPage(selector);
+	};
+
+	UserController.prototype.showAddNewPost = function (selector) {
+		this._viewBag.showAddNewPost(selector);
 	};
 
 	return UserController;

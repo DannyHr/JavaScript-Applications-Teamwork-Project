@@ -66,5 +66,10 @@ app.postController = (function () {
 			);
 	};
 
+	PostController.prototype.showAddPost = function (selector) {
+		var _this = this;
+		_this._viewBag.showAddPost(selector);
+	};
+
 	return PostController;
 })();
