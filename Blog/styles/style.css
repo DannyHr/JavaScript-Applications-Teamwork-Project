@@ -54,17 +54,17 @@ main {
     text-align: left;
 }
 
-#login {
+#user-field {
     float: right;
     margin-right: 20px;
 }
 
-#login a {
+#user-field a {
     padding-left: 10px;
     color: #707070;
 }
 
-#login a:hover {
+#user-field a:hover {
     color: #000;
 }
 

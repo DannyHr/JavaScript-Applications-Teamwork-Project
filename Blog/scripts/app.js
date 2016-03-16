@@ -20,6 +20,7 @@ var app = app || {};
 
 		(function () {
 			userController.checkIsAdmin();
+			userController.homePage();
 			postController.showAllPosts(sideBar);
 		})();
 

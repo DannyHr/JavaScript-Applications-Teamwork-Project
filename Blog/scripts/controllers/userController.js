@@ -6,7 +6,11 @@ app.userController = (function () {
 		this._viewBag = viewBag;
 		this._authorizer = authorizer;
 	}
-
+	UserController.prototype.homePage = function () {
+		$.get('templates/notLoggedUser.html', function (templ) {
+			$('#user-field').html(templ);
+		});
+	};
 	UserController.prototype.login = function (data) {
 		var _this = this;
 		this._model.login(data)

@@ -11,6 +11,11 @@ app.userViews = (function () {
 				var username = $('#login-username').val(),
 					password = $('#login-password').val();
 
+				//TODO: this shit ain't be here
+				$.get('templates/loggedUser.html', function (templ) {
+					$('#user-field').html(templ);
+				});
+
 				Sammy(function () {
 					this.trigger('login', {username: username, password: password});
 					this.trigger('redirectUrl', {url: '#/'});
