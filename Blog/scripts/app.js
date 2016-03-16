@@ -22,6 +22,7 @@ var app = app || {};
 			userController.checkIsAdmin();
 			userController.homePage();
 			postController.showAllPosts(sideBar);
+			postController.SearchInPosts();
 		})();
 
 		this.get('#/', function () {
