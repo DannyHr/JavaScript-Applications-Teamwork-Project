@@ -4,177 +4,177 @@ var data = (function () {
     var appId = 'kid_-19uDdP4y-';
     var appSecret = '0fe0766a2dd747639ab970bf02ee732b';
 
-    var credentials = (function () {
-        function getHeaders(contentType, useSession) {
-            var headers = {};
+    //var credentials = (function () {
+    //    function getHeaders(contentType, useSession) {
+    //        var headers = {};
+	//
+    //        if (contentType) {
+    //            headers['Content-Type'] = 'application/json';
+    //        }
+	//
+    //        if (useSession) {
+    //            headers['Authorization'] = 'Kinvey ' + getSessionToken();
+    //        }
+    //        else {
+    //            headers['Authorization'] = 'Basic ' + btoa(appId + ':' + appSecret);
+    //        }
+	//
+    //        return headers;
+    //    }
+	//
+    //    function getGuestHeaders(contentType, useSession) {
+    //        var headers = {};
+	//
+    //        if (contentType) {
+    //            headers['Content-Type'] = 'application/json';
+    //        }
+	//
+    //        if (useSession) {
+    //            headers['Authorization'] = 'Kinvey ' + getSessionToken();
+    //        }
+    //        else {
+    //            headers['Authorization'] = 'Basic ' + btoa(appId + ':' + appSecret);
+    //        }
+	//
+    //        return {
+    //            'Authorization': 'Basic ' + btoa('guest:guest'),
+    //            'Content-Type': 'application/json'
+    //        };
+    //    }
+	//
+    //    function getSessionToken() {
+    //        return sessionStorage.getItem('sessionToken');
+    //    }
+	//
+    //    function setSessionToken(sessionToken) {
+    //        sessionStorage.setItem('sessionToken', sessionToken);
+    //    }
+	//
+    //    function getUserId() {
+    //        return sessionStorage.getItem('userId');
+    //    }
+	//
+    //    function setUserId(userId) {
+    //        sessionStorage.setItem('userId', userId);
+    //    }
+	//
+    //    function getUsername() {
+    //        return sessionStorage.getItem('username');
+    //    }
+	//
+    //    function setUsername(username) {
+    //        sessionStorage.setItem('username', username);
+    //    }
+	//
+    //    function clearStorage() {
+    //        sessionStorage.clear();
+    //    }
+	//
+    //    return {
+    //        getHeaders: getHeaders,
+    //        getGuestHeaders: getGuestHeaders,
+    //        getSessionToken: getSessionToken,
+    //        setSessionToken: setSessionToken,
+    //        getUserId: getUserId,
+    //        setUserId: setUserId,
+    //        getUsername: getUsername,
+    //        setUsername: setUsername,
+    //        clearStorage: clearStorage
+    //    }
+    //})();
 
-            if (contentType) {
-                headers['Content-Type'] = 'application/json';
-            }
-
-            if (useSession) {
-                headers['Authorization'] = 'Kinvey ' + getSessionToken();
-            }
-            else {
-                headers['Authorization'] = 'Basic ' + btoa(appId + ':' + appSecret);
-            }
-
-            return headers;
-        }
-
-        function getGuestHeaders(contentType, useSession) {
-            var headers = {};
-
-            if (contentType) {
-                headers['Content-Type'] = 'application/json';
-            }
-
-            if (useSession) {
-                headers['Authorization'] = 'Kinvey ' + getSessionToken();
-            }
-            else {
-                headers['Authorization'] = 'Basic ' + btoa(appId + ':' + appSecret);
-            }
-
-            return {
-                'Authorization': 'Basic ' + btoa('guest:guest'),
-                'Content-Type': 'application/json'
-            };
-        }
-
-        function getSessionToken() {
-            return sessionStorage.getItem('sessionToken');
-        }
-
-        function setSessionToken(sessionToken) {
-            sessionStorage.setItem('sessionToken', sessionToken);
-        }
-
-        function getUserId() {
-            return sessionStorage.getItem('userId');
-        }
-
-        function setUserId(userId) {
-            sessionStorage.setItem('userId', userId);
-        }
-
-        function getUsername() {
-            return sessionStorage.getItem('username');
-        }
-
-        function setUsername(username) {
-            sessionStorage.setItem('username', username);
-        }
-
-        function clearStorage() {
-            sessionStorage.clear();
-        }
-
-        return {
-            getHeaders: getHeaders,
-            getGuestHeaders: getGuestHeaders,
-            getSessionToken: getSessionToken,
-            setSessionToken: setSessionToken,
-            getUserId: getUserId,
-            setUserId: setUserId,
-            getUsername: getUsername,
-            setUsername: setUsername,
-            clearStorage: clearStorage
-        }
-    })();
-
-    var users = (function () {
-       // console.log(credentials.getUsername());
-       // if (credentials.getUsername() != 'admin') {
-            function login(username, password) {
-                var data = {
-                    'username': username,
-                    'password': password
-                };
-
-                return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId + "/login", data, credentials.getHeaders(true))
-                    .then(
-                        function (response) {
-                            console.log("Success");
-                            credentials.setSessionToken(response._kmd.authtoken);
-                            credentials.setUsername(response.username);
-                            credentials.setUserId(response._id);
-                            /*TODO: need some fix*/
-                            $('#login').children().first().remove();
-                            $('#login').children().first().text('Log out');
-
-                        },
-                        function (error) {
-                            console.error("Unsuccessful login!");
-                        }
-                    );
-            }
-
-        function register(username, password, fullName, aboutInfo, gender, permission_level) {
-            var data = {
-                'username': username,
-                'password': password,
-                'name': fullName,
-                'about': aboutInfo,
-                'gender': gender,
-                'permission_level': permission_level
-            };
-
-            return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId, data, credentials.getHeaders(true))
-                .then(
-                    function (response) {
-                        console.log("Success");
-                    },
-                    function (error) {
-                        console.error("Unsuccessful register!");
-                    }
-                );
-        }
-
-        function editProfile() {
-            //TODO: IMPLEMENT ME
-        }
-
-        function getById(id) {
-            return app.ajaxRequester.get("https://baas.kinvey.com/user/" + appId + "/" + id, credentials.getHeaders(true, true))
-                .then(
-                    function (response) {
-                        console.log("Success");
-                        console.log(response); // TODO: implement logic
-                    },
-                    function (error) {
-                        console.error("Unsuccessful getting info!");
-                    }
-                );
-        }
-
-        function getCurrentUserData() {
-            return getById(credentials.getUserId());
-        }
-
-        function logout() {
-            return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId + "/_logout", null, credentials.getHeaders(false, true))
-                .then(
-                    function (response) {
-                        console.log("Success");
-                        credentials.clearStorage();
-                    },
-                    function (error) {
-                        console.error("Unsuccessfully logged out!");
-                    }
-                );
-        }
-
-        return {
-            login: login,
-            register: register,
-            editProfile: editProfile,
-            getById: getById,
-            getCurrentUserData: getCurrentUserData,
-            logout: logout
-        }
-
-    })();
+    //var users = (function () {
+    //   // console.log(credentials.getUsername());
+    //   // if (credentials.getUsername() != 'admin') {
+    //        function login(username, password) {
+    //            var data = {
+    //                'username': username,
+    //                'password': password
+    //            };
+	//
+    //            return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId + "/login", data, credentials.getHeaders(true))
+    //                .then(
+    //                    function (response) {
+    //                        console.log("Success");
+    //                        credentials.setSessionToken(response._kmd.authtoken);
+    //                        credentials.setUsername(response.username);
+    //                        credentials.setUserId(response._id);
+    //                        /*TODO: need some fix*/
+    //                        $('#login').children().first().remove();
+    //                        $('#login').children().first().text('Log out');
+	//
+    //                    },
+    //                    function (error) {
+    //                        console.error("Unsuccessful login!");
+    //                    }
+    //                );
+    //        }
+	//
+    //    function register(username, password, fullName, aboutInfo, gender, permission_level) {
+    //        var data = {
+    //            'username': username,
+    //            'password': password,
+    //            'name': fullName,
+    //            'about': aboutInfo,
+    //            'gender': gender,
+    //            'permission_level': permission_level
+    //        };
+	//
+    //        return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId, data, credentials.getHeaders(true))
+    //            .then(
+    //                function (response) {
+    //                    console.log("Success");
+    //                },
+    //                function (error) {
+    //                    console.error("Unsuccessful register!");
+    //                }
+    //            );
+    //    }
+	//
+    //    function editProfile() {
+    //        //TODO: IMPLEMENT ME
+    //    }
+	//
+    //    function getById(id) {
+    //        return app.ajaxRequester.get("https://baas.kinvey.com/user/" + appId + "/" + id, credentials.getHeaders(true, true))
+    //            .then(
+    //                function (response) {
+    //                    console.log("Success");
+    //                    console.log(response); // TODO: implement logic
+    //                },
+    //                function (error) {
+    //                    console.error("Unsuccessful getting info!");
+    //                }
+    //            );
+    //    }
+	//
+    //    function getCurrentUserData() {
+    //        return getById(credentials.getUserId());
+    //    }
+	//
+    //    function logout() {
+    //        return app.ajaxRequester.post("https://baas.kinvey.com/user/" + appId + "/_logout", null, credentials.getHeaders(false, true))
+    //            .then(
+    //                function (response) {
+    //                    console.log("Success");
+    //                    credentials.clearStorage();
+    //                },
+    //                function (error) {
+    //                    console.error("Unsuccessfully logged out!");
+    //                }
+    //            );
+    //    }
+	//
+    //    return {
+    //        login: login,
+    //        register: register,
+    //        editProfile: editProfile,
+    //        getById: getById,
+    //        getCurrentUserData: getCurrentUserData,
+    //        logout: logout
+    //    }
+	//
+    //})();
 
     var posts = (function () {
 

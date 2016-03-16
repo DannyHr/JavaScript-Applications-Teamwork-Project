@@ -13,7 +13,14 @@ app.userViews = (function () {
 
 				Sammy(function () {
 					this.trigger('login', {username: username, password: password});
-					this.trigger('redirectURL', {url: '#/'});
+					this.trigger('redirectUrl', {url: '#/'});
+
+				});
+			});
+
+			$('#register-button').on('click', function () {
+				Sammy(function () {
+					this.trigger('redirectUrl', {url: '#/register'});
 
 				});
 			});
@@ -23,7 +30,7 @@ app.userViews = (function () {
 	UserViews.prototype.showRegisterPage = function (selector) {
 		$.get('templates/register.html', function (templ) {
 			$(selector).html(templ);
-			$('#register').on('click', function (e) {
+			$('#register-button').on('click', function (e) {
 				var username = $('#reg-username').val(),
 					password = $('#reg-password').val(),
 					name = $('#reg-name').val(),
@@ -38,8 +45,14 @@ app.userViews = (function () {
 						name: name,
 						about: about,
 						gender: gender,
-						permissionLevel: 0
+						permission_level: 0
 					});
+				})
+			})
+
+			$('#login-button').on('click', function (e) {
+				Sammy(function () {
+					this.trigger('redirectUrl', {url: '#/login'});
 				})
 			})
 		})

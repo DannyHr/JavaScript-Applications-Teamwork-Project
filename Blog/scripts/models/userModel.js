@@ -12,14 +12,7 @@ app.userModel = (function () {
 	};
 
 	UserModel.prototype.register = function (data) {
-		//var data = {
-		//	'username': username,
-		//	'password': password,
-		//	'name': fullName,
-		//	'about': aboutInfo,
-		//	'gender': gender,
-		//	'permission_level': permission_level
-		//};
+
 
 		return this._requester.post(this.serviceUrl, data, this._authorizer.getHeaders(true));
 	};

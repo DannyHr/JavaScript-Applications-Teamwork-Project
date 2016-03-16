@@ -15,7 +15,8 @@ app.userController = (function () {
 					_this._authorizer.setSessionToken(response._kmd.authtoken);
 					_this._authorizer.setUsername(response.username);
 					_this._authorizer.setUserId(response._id);
-					/*TODO: need some fix*/
+
+					//TODO: need some fix
 					$('#login').children().first().remove();
 					$('#login').children().first().text('Log out');
 
@@ -30,10 +31,18 @@ app.userController = (function () {
 	};
 
 	UserController.prototype.register = function (data) {
+		var _this = this;
 		this._model.register(data)
 			.then(
 				function (response) {
 					console.log("Successful register");
+					_this._authorizer.setSessionToken(response._kmd.authtoken);
+					_this._authorizer.setUsername(response.username);
+					_this._authorizer.setUserId(response._id);
+
+					Sammy(function () {
+						this.trigger('redirectUrl', {url: '#/'})
+					})
 				},
 				function (error) {
 					console.error("Unsuccessful register!");
