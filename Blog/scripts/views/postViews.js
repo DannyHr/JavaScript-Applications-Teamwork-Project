@@ -18,5 +18,13 @@ app.postViews = (function () {
 		});
 	};
 
+	PostViews.prototype.showAllPostsTitles = function (selector, posts) {
+		$.get('templates/all-posts.html', function (template) {
+			var data = {posts: posts};
+			var outputHtml = Mustache.render(template, data);
+			$(selector).html(outputHtml);
+		});
+	};
+
 	return PostViews;
 })();

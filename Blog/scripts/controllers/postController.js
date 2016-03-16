@@ -32,21 +32,19 @@ app.postController = (function () {
 			).done();
 	};
 
-	//PostController.prototype.getAllPosts = function () {
-	//	this._model.getAllPosts()
-	//		.then(function (response) {
-	//				console.log("Successfully got all posts");
-	//				var result = [];
-	//				response.forEach(function (element) {
-	//					//result.push(new Post(element.title, element.content, element._kmd.ect))
-	//				});
-	//				return result;//TODO FIX THIS (should call viewer)
-	//			},
-	//			function (error) {
-	//				console.error("Couldn't get all posts");
-	//			}
-	//		);
-	//};
+	PostController.prototype.showAllPostsTitles = function (selector) {
+		var _this = this;
+		this._model.getAllPostsTitles()
+			.then(function (response) {
+					console.log("Successfully got all posts titles");
+					_this._viewBag.showAllPostsTitles(selector, response);
+
+				},
+				function (error) {
+					console.error("Couldn't get all posts");
+				}
+			);
+	};
 
 	PostController.prototype.showLastPost = function (selector) {
 		var _this = this;

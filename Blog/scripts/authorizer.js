@@ -14,7 +14,7 @@ app.authorizer = (function () {
 		}
 
 		if (useSession) {
-			headers['Authorization'] = 'Kinvey ' + getSessionToken();
+			headers['Authorization'] = 'Kinvey ' + this.getSessionToken();
 		}
 		else {
 			headers['Authorization'] = 'Basic ' + btoa(this.appId + ':' + this.appSecret);
@@ -31,7 +31,7 @@ app.authorizer = (function () {
 		}
 
 		if (useSession) {
-			headers['Authorization'] = 'Kinvey ' + getSessionToken();
+			headers['Authorization'] = 'Kinvey ' + this.getSessionToken();
 		}
 		else {
 			headers['Authorization'] = 'Basic ' + btoa(this.appId + ':' + this.appSecret);

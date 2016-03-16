@@ -15,7 +15,7 @@ app.postModel = (function () {
 		return this._requester.get(this.serviceUrl + '/' + id, this._authorizer.getGuestHeaders());
 	};
 
-	PostModel.prototype.getAllPosts = function () {
+	PostModel.prototype.getAllPostsTitles = function () {
 		return this._requester.get(this.serviceUrl + '?sort={"_kmd.ect":-1}', this._authorizer.getGuestHeaders());
 	};
 
