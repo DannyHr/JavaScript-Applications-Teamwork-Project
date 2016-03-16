@@ -96,13 +96,12 @@ app.userController = (function () {
 			.then(
 				function (response) {
 					console.log("Successfully checked if user is admin");
-					console.log(response);
+					//console.log(response);
+					
 					if (response['permission_level'] === 1) {
 						Sammy(function () {
 							this.trigger('isAdmin');
 						});
-
-						//_this._viewBag.showAddNewPost(selector)
 					}
 				},
 				function (error) {
