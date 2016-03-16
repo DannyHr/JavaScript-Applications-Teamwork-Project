@@ -15,8 +15,13 @@ app.postModel = (function () {
 		return this._requester.get(this.serviceUrl + '/' + id, this._authorizer.getGuestHeaders());
 	};
 
-	PostModel.prototype.getAllPostsTitles = function () {
+	PostModel.prototype.getAllPosts = function () {
 		return this._requester.get(this.serviceUrl + '?sort={"_kmd.ect":-1}', this._authorizer.getGuestHeaders());
+	};
+
+	PostModel.prototype.getCommentsByPostId = function (postId) {
+		return this._requester.get(this._requester.baseUrl + 'appdata/' + this._authorizer.appId +
+			'/Comments?query={"post._id":"' + postId + '"}&sort={"_kmd.ect":-1}', this._authorizer.getGuestHeaders());
 	};
 
 	PostModel.prototype.getLastPost = function () {

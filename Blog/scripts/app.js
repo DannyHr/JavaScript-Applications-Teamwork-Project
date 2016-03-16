@@ -18,7 +18,7 @@ var app = app || {};
 		var postController = new app.postController(postModel, postView, authorizer);
 
 		(function () {
-			postController.showAllPostsTitles(sideBar);
+			postController.showAllPosts(sideBar);
 		})();
 
 		this.get('#/', function () {

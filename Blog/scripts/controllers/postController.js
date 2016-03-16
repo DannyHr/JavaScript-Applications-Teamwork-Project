@@ -21,10 +21,14 @@ app.postController = (function () {
 
 	PostController.prototype.showPostPageById = function (selector, postId) {
 		var _this = this;
-		this._model.getPostById(postId)
-			.then(function (response) {
+
+		var promises = [this._model.getPostById(postId),
+			this._model.getCommentsByPostId(postId)]
+
+		Q.all(promises)
+			.then(function (post) {
 					console.log("Successfully got post by id");
-					_this._viewBag.showPostPageById(selector, response);
+					_this._viewBag.showPostPageById(selector, post);
 				},
 				function (error) {
 					console.error("Couldn't get post by id");
@@ -32,12 +36,12 @@ app.postController = (function () {
 			).done();
 	};
 
-	PostController.prototype.showAllPostsTitles = function (selector) {
+	PostController.prototype.showAllPosts = function (selector) {
 		var _this = this;
-		this._model.getAllPostsTitles()
+		this._model.getAllPosts()
 			.then(function (response) {
 					console.log("Successfully got all posts titles");
-					_this._viewBag.showAllPostsTitles(selector, response);
+					_this._viewBag.showAllPosts(selector, response);
 
 				},
 				function (error) {
