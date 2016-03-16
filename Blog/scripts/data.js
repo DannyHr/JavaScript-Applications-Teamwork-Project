@@ -5,7 +5,6 @@ var data = (function () {
     var appSecret = '0fe0766a2dd747639ab970bf02ee732b';
 
     var credentials = (function () {
-
         function getHeaders(contentType, useSession) {
             var headers = {};
 
@@ -82,7 +81,6 @@ var data = (function () {
             setUsername: setUsername,
             clearStorage: clearStorage
         }
-
     })();
 
     var users = (function () {

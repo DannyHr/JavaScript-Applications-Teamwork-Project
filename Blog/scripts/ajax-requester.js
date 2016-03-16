@@ -1,26 +1,29 @@
 var app = app || {};
 
-var ajaxRequester = (function() {
-	
-	function makeGetRequest(url, headers){
+app.ajaxRequester = (function () {
+	function Requester() {
+		this.baseUrl = 'https://baas.kinvey.com/';
+	}
+
+	Requester.prototype.get = function (url, headers) {
 		return makeRequest('GET', url, null, headers);
-	}
-	
-	function makePostRequest(url, data, headers){
+	};
+
+	Requester.prototype.post = function (url, data, headers) {
 		return makeRequest('POST', url, data, headers);
-	}
-	
-	function makePutRequest(url, data, headers){
+	};
+
+	Requester.prototype.put = function (url, data, headers) {
 		return makeRequest('PUT', url, data, headers);
-	}
-	
-	function makeDeleteRequest(url, headers){
+	};
+
+	Requester.prototype.delete = function (url, headers) {
 		return makeRequest('DELETE', url, null, headers);
-	}
-	
-	function makeRequest(method, url, data, headers){
+	};
+
+	function makeRequest(method, url, data, headers) {
 		var queue = Q.defer();
-		
+
 		$.ajax({
 			url: url,
 			method: method,
@@ -33,16 +36,9 @@ var ajaxRequester = (function() {
 				queue.reject(data);
 			}
 		});
-		
+
 		return queue.promise;
 	}
-	
-	return {
-		get: makeGetRequest,
-		post: makePostRequest,
-		put: makePutRequest,
-		delete: makeDeleteRequest
-	}
-})();
 
-app.ajaxRequester = ajaxRequester;
+	return Requester;
+})();
