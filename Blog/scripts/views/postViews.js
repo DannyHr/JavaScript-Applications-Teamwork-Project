@@ -11,30 +11,12 @@ app.postViews = (function () {
 		});
 	};
 
-	//PostViews.prototype.showRegisterPage = function (selector) {
-	//	$.get('templates/register.html', function (templ) {
-	//		$(selector).html(templ);
-	//		$('#register').on('click', function (e) {
-	//			var username = $('#reg-username').val(),
-	//				password = $('#reg-password').val(),
-	//				name = $('#reg-name').val(),
-	//				about = $('#reg-about').val(),
-	//				gender = $('input[name="gender-radio"]:checked').val();
-	//
-	//
-	//			Sammy(function () {
-	//				this.trigger('register', {
-	//					username: username,
-	//					password: password,
-	//					name: name,
-	//					about: about,
-	//					gender: gender,
-	//					permissionLevel: 0
-	//				});
-	//			})
-	//		})
-	//	})
-	//};
+	PostViews.prototype.showPostPageById = function (selector, post) {
+		$.get('templates/post.html', function (template) {
+			var outputHtml = Mustache.render(template, post);
+			$(selector).html(outputHtml);
+		});
+	};
 
 	return PostViews;
 })();

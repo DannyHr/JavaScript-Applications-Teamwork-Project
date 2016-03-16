@@ -18,18 +18,6 @@ var app = app || {};
 
 		this.get('#/', function () {
 			postController.showLastPost(selector);
-
-			//$.get('templates/lastPosts.html', function (template) {
-			//	app.data.posts.getAllPosts().then(function (allPosts) {
-			//		var lastPosts = {"posts": allPosts};
-			//		var outputHtml = Mustache.render(template, lastPosts);
-			//		// console.log(lastPosts);
-			//		$('#last-posts').html(outputHtml);
-			//
-			//	}, function (error) {
-			//		console.error(error)
-			//	});
-			//});
 		});
 
 		this.bind('login', function (e, data) {
@@ -50,32 +38,13 @@ var app = app || {};
 
 		this.get('#/register', function () {
 			userController.showRegisterPage(selector);
-
-			//$('#main-container').empty().load('templates/register.html', null, function () {
-			//	$('#register-button').on('click', function () {
-			//		var username = $('#reg-username').val();
-			//		var password = $('#reg-password').val();
-			//		var name = $('#reg-name').val();
-			//		var about = $('#reg-about').val();
-			//		var gender = $('input[name=gender-radio]:checked').val();
-			//		app.data.users.register(username, password, name, about, gender, 1);
-			//	})
-			//});
 		});
 
 		this.get('#/post', function () {
 			$('#main-container').empty();
 			var urlQueryVars = app.helpers.getUrlVars();
 
-			//urlQueryVars.forEach(function (item) {
-			//	console.log(item + ' -> ' + urlQueryVars[item]);
-			//})
-
-			app.data.posts.getPostById(urlQueryVars['id'])
-				.then(function (response) {
-					$('#main-container').text(response.content);
-				}).done();
-
+			postController.showPostPageById(selector, urlQueryVars['id']);
 		});
 	});
 
