@@ -70,7 +70,8 @@ app.postController = (function () {
         var _this = this;
         _this._viewBag.showAddPost(selector);
     };
-    PostController.prototype.SearchInPosts = function () {
+
+    PostController.prototype.searchInPosts = function () {
 		//TODO: this shit is not MVC and not working properly need fix
         var _this = this;
         var value = $('#search-field').children().first().val();

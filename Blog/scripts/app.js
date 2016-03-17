@@ -4,7 +4,7 @@ var app = app || {};
 	app.router = Sammy(function () {
 		var sideBar = '#all-posts',
 			mainContainer = '#main-container',
-			addNewPostSelector = 'main>section>nav',
+			addNewPostSelector = '#add-post-button',
 			userFieldSelector = '#user-field';
 
 		var requester = new app.ajaxRequester();
@@ -19,11 +19,9 @@ var app = app || {};
 		var userController = new app.userController(userModel, userView, authorizer);
 		var postController = new app.postController(postModel, postView, authorizer);
 
-		(function () {
-			userController.checkIsAdmin();
-			postController.showAllPosts(sideBar);
-			userController.showUserControls(userFieldSelector);
-		})();
+		this.before(function(){
+			this.trigger('checkUserStatus');
+		});
 
 		this.get('#/', function () {
 			postController.showLastPost(mainContainer);
@@ -48,12 +46,18 @@ var app = app || {};
 			postController.showPostPageById(mainContainer, urlQueryVars['id']);
 		});
 
+		this.bind('checkUserStatus', function (e) {
+			userController.checkIsAdmin();
+			postController.showAllPosts(sideBar);
+			userController.showUserControls(userFieldSelector);
+		});
+
 		this.bind('addPost', function (e, data) {
 			postController.addPost(data);
 		});
 
 		this.bind('isAdmin', function (e, data) {
-			userController.showAddNewPost(addNewPostSelector);
+			userController.showAddNewPost(addNewPostSelector, data);
 		});
 
 		this.bind('login', function (e, data) {

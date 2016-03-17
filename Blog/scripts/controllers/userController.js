@@ -26,8 +26,9 @@ app.userController = (function () {
 					$('#login').children().first().text('Log out');
 
 					Sammy(function () {
-						this.trigger('redirectUrl', {url: '#/'})
-					})
+						this.trigger('checkUserStatus', null);
+						this.trigger('redirectUrl', {url: '#/'});
+					});
 				},
 				function (error) {
 					console.error("Unsuccessful login");
@@ -46,6 +47,7 @@ app.userController = (function () {
 					_this._authorizer.setUserId(response._id);
 
 					Sammy(function () {
+						this.trigger('checkUserStatus', null);
 						this.trigger('redirectUrl', {url: '#/'})
 					})
 				},
@@ -84,6 +86,10 @@ app.userController = (function () {
 				function (response) {
 					console.log("Successful logout");
 					_this._authorizer.clearStorage();
+
+					Sammy(function(){
+						this.trigger('checkUserStatus', null);
+					});
 				},
 				function (error) {
 					console.error("Unsuccessful logout!");
@@ -92,21 +98,31 @@ app.userController = (function () {
 	};
 
 	UserController.prototype.checkIsAdmin = function () {
-		var _this = this;
-		this._model.getById(this._authorizer.getUserId())
-			.then(
-				function (response) {
-					console.log("Successfully checked if user is admin");
-					if (response['permission_level'] === 1) {
+		var currentUserId = this._authorizer.getUserId();
+		if (currentUserId) {
+			this._model.getById(currentUserId)
+				.then(function (response) {
+						console.log("Successfully checked if user is admin");
+						var data = {};
+						if (response['permission_level'] === 1) {
+							data.isAdmin = true;
+						} else {
+							data.isAdmin = false;
+						}
+
 						Sammy(function () {
-							this.trigger('isAdmin');
+							this.trigger('isAdmin', data);
 						});
+					},
+					function (error) {
+						console.error("Couldn't check if user is admin!");
 					}
-				},
-				function (error) {
-					console.error("Couldn't check if user is admin!");
-				}
-			).done();
+				).done();
+		} else {
+			Sammy(function () {
+				this.trigger('isAdmin', {isAdmin: false});
+			});
+		}
 	};
 
 	UserController.prototype.showLoginPage = function (selector) {
@@ -117,8 +133,8 @@ app.userController = (function () {
 		this._viewBag.showRegisterPage(selector);
 	};
 
-	UserController.prototype.showAddNewPost = function (selector) {
-		this._viewBag.showAddNewPost(selector);
+	UserController.prototype.showAddNewPost = function (selector, data) {
+		this._viewBag.showAddNewPost(selector, data);
 	};
 
 	UserController.prototype.showUserControls = function (selector) {
