@@ -148,7 +148,6 @@ article {
     display: inline-block;
 }
 
-
 #add-post {
     width: 75%;
     display: inline-block;
@@ -189,11 +188,26 @@ article > p {
     text-align: justify;
 }
 
+#main-view-comments {
+    display: block;
+    color: #444;
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+#main-view-comments:hover {
+    text-decoration: underline;
+}
+
+#main-view-comments:before {
+    content: url('../images/comments-icon.png');
+    padding: 7px 5px;
+}
+
 #comments {
-    float: right;
     margin-top: 20px;
-    padding: 20px;
-    width: 75%;
+    padding: 10px;
+    width: 85%;
     text-align: justify;
     line-height: 1em;
 }
