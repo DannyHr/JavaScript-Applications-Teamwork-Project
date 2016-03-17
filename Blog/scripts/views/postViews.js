@@ -63,7 +63,7 @@ app.postViews = (function () {
 			});
 			var tagsObj = app.helpers.arrToObject(tags); // contains all the tags and their number of appearance
 
-			var data = {tags:[]};
+			var data = {tags: []};
 			for (var key in tagsObj) {
 				if (tagsObj.hasOwnProperty(key)) {
 					var currentObj = {
@@ -74,8 +74,6 @@ app.postViews = (function () {
 					data.tags.push(currentObj);
 				}
 			}
-
-			console.log(data);
 
 			var outputHtml = Mustache.render(template, data);
 			$(selector).html(outputHtml);

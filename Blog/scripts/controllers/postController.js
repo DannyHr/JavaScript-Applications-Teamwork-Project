@@ -71,26 +71,24 @@ app.postController = (function () {
 		_this._viewBag.showAddPost(selector);
 	};
 
-	PostController.prototype.searchInPosts = function () {
-		//TODO: this shit is not MVC and not working properly need fix
-		var _this = this;
-		var value = $('#search-field').children().first().val();
-		$('#search').on('click', function () {
-			_this._model.getAllPosts().then().then(
-				function (success) {
-					var searched = success.filter(function (e) {
-						return e.title = value;
-					});
-					console.log(searched);
-				},
-				function (error) {
-					console.log("Something went wrong :(", error);
-				}
-			).done()
-
-		});
-
-	};
+	//PostController.prototype.searchInPosts = function () {
+	//	//TODO: this shit is not MVC and not working properly need fix
+	//	var _this = this;
+	//	var value = $('#search-field').children().first().val();
+	//	$('#search').on('click', function () {
+	//		_this._model.getAllPosts().then().then(
+	//			function (success) {
+	//				var searched = success.filter(function (e) {
+	//					return e.title = value;
+	//				});
+	//				console.log(searched);
+	//			},
+	//			function (error) {
+	//				console.log("Something went wrong :(", error);
+	//			}
+	//		).done()
+	//	});
+	//};
 
 	PostController.prototype.showPostsTags = function (selector) {
 		var _this = this;
@@ -100,7 +98,6 @@ app.postController = (function () {
 					console.log("Successfully got posts tags");
 
 					_this._viewBag.showAllTags(selector, response);
-					//_this._viewBag.showPostsTags(selector, lastPost);
 				},
 				function (error) {
 					console.error("Couldn't get last post");

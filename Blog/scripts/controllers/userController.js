@@ -87,7 +87,7 @@ app.userController = (function () {
 					console.log("Successful logout");
 					_this._authorizer.clearStorage();
 
-					Sammy(function(){
+					Sammy(function () {
 						this.trigger('checkUserStatus', null);
 					});
 				},
