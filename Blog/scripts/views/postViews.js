@@ -55,15 +55,15 @@ app.postViews = (function () {
 			var tags = [];
 			tagsArr.forEach(function (el) {
 				if (el.hasOwnProperty('tags')) {
-					var tagsArr = el['tags'];
-					tagsArr.forEach(function (tag) {
-						tags.push(tag);
-					});
+					el['tags']
+						.forEach(function (tag) {
+							tags.push(tag);
+						});
 				}
 			});
 			var tagsObj = app.helpers.arrToObject(tags); // contains all the tags and their number of appearance
 
-			var data = {tags: []};
+			var outputArr = [];
 			for (var key in tagsObj) {
 				if (tagsObj.hasOwnProperty(key)) {
 					var currentObj = {
@@ -71,9 +71,16 @@ app.postViews = (function () {
 						tagCount: tagsObj[key]
 					};
 
-					data.tags.push(currentObj);
+					outputArr.push(currentObj);
 				}
 			}
+
+			outputArr = outputArr.sort(function (a, b) {
+				return a.tagCount < b.tagCount
+			}).slice(0, 5);
+
+
+			var data = {tags: outputArr};
 
 			var outputHtml = Mustache.render(template, data);
 			$(selector).html(outputHtml);
@@ -83,6 +90,20 @@ app.postViews = (function () {
 	PostViews.prototype.showAddPost = function (selector) {
 		$.get('templates/add-post-page.html', function (template) {
 			$(selector).html(template);
+			$('#post-submit').on('click', function (e) {
+				var title = $('#post-title').val(),
+					content = $('#post-content').val(),
+					tags = $('#post-tags').val().split(' ');
+
+				Sammy(function () {
+					this.trigger('addPost', {
+						title: title,
+						content: content,
+						tags: tags
+					});
+					this.trigger('redirectUrl', {url: '#/'});
+				})
+			})
 		});
 	};
 

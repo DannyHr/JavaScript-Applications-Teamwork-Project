@@ -42,7 +42,6 @@ app.postController = (function () {
 			.then(function (response) {
 					console.log("Successfully got all posts titles");
 					_this._viewBag.showAllPosts(selector, response);
-
 				},
 				function (error) {
 					console.error("Couldn't get all posts");
