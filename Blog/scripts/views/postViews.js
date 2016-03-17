@@ -9,7 +9,7 @@ app.postViews = (function () {
 			var data = {
 				'title': lastPost.title,
 				'content': lastPost.content,
-				'date': lastPost._kmd.lmt,
+				'date': lastPost._kmd.ect = lastPost._kmd.ect.replace('T', ' ').substr(0, 19),
 				'id': lastPost._id
 			};
 			var outputHtml = Mustache.render(template, data);
@@ -23,7 +23,7 @@ app.postViews = (function () {
 			post[1].forEach(function (comment) {
 				var currentComment = {
 					'author': comment.author,
-					'date': comment._kmd.ect,
+					'date': comment._kmd.ect = comment._kmd.ect.replace('T', ' ').substr(0, 19),
 					'content': comment.content
 				};
 
@@ -33,7 +33,7 @@ app.postViews = (function () {
 			var data = {
 				'title': post[0].title,
 				'content': post[0].content,
-				'date': post[0]._kmd.lmt,
+				'date': post[0]._kmd.lmt = post[0]._kmd.lmt.replace('T', ' ').substr(0, 19),
 				'comments': comments
 			};
 
