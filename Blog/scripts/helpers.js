@@ -14,7 +14,20 @@ app.helpers = (function () {
 		return vars;
 	}
 
+	function arrToObject(arr) {
+		var rv = {};
+		for (var i = 0; i < arr.length; ++i)
+			if ((arr[i] !== undefined) && (rv[arr[i]] === undefined)) {
+				rv[arr[i]] = 0;
+				rv[arr[i]]++;
+			} else {
+				rv[arr[i]]++;
+			}
+		return rv;
+	}
+
 	return {
-		getUrlVars: getUrlVars
+		getUrlVars: getUrlVars,
+		arrToObject: arrToObject
 	}
 })();

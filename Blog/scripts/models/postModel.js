@@ -28,5 +28,9 @@ app.postModel = (function () {
 		return this._requester.get(this.serviceUrl + '?sort={"_kmd.ect":-1}&limit=1', this._authorizer.getGuestHeaders())
 	};
 
+	PostModel.prototype.getPostsTags = function () {
+		return this._requester.get(this.serviceUrl + '?query={}&fields=tags', this._authorizer.getGuestHeaders());
+	};
+
 	return PostModel;
 })();

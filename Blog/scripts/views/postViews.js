@@ -50,6 +50,38 @@ app.postViews = (function () {
 		});
 	};
 
+	PostViews.prototype.showAllTags = function (selector, tagsArr) {
+		$.get('templates/tags.html', function (template) {
+			var tags = [];
+			tagsArr.forEach(function (el) {
+				if (el.hasOwnProperty('tags')) {
+					var tagsArr = el['tags'];
+					tagsArr.forEach(function (tag) {
+						tags.push(tag);
+					});
+				}
+			});
+			var tagsObj = app.helpers.arrToObject(tags); // contains all the tags and their number of appearance
+
+			var data = {tags:[]};
+			for (var key in tagsObj) {
+				if (tagsObj.hasOwnProperty(key)) {
+					var currentObj = {
+						tagName: key,
+						tagCount: tagsObj[key]
+					};
+
+					data.tags.push(currentObj);
+				}
+			}
+
+			console.log(data);
+
+			var outputHtml = Mustache.render(template, data);
+			$(selector).html(outputHtml);
+		});
+	};
+
 	PostViews.prototype.showAddPost = function (selector) {
 		$.get('templates/add-post-page.html', function (template) {
 			$(selector).html(template);

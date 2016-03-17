@@ -64,7 +64,6 @@ app.userViews = (function () {
 	};
 
 	UserViews.prototype.showAddNewPost = function (selector, data) {
-		console.log(data);
 		if (data.isAdmin) {
 			$.get('templates/add-post.html', function (templ) {
 				$(selector).html(templ);
