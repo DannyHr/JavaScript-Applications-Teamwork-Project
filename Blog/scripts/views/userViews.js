@@ -12,7 +12,7 @@ app.userViews = (function () {
 					password = $('#login-password').val();
 
 				//TODO: this shit ain't be here
-				$.get('templates/loggedUser.html', function (templ) {
+				$.get('templates/user-logged.html', function (templ) {
 					$('#user-field').html(templ);
 				});
 
@@ -63,15 +63,33 @@ app.userViews = (function () {
 		})
 	};
 
-	UserViews.prototype.showAddNewPost = function(selector){
+	UserViews.prototype.showAddNewPost = function (selector) {
 		$.get('templates/add-post.html', function (templ) {
 			$(selector).prepend(templ);
-			$('#add-post').on('click', function(e){
-				Sammy(function(){
-					this.trigger('redirectUrl', {url:'#/addPost'})
+			$('#add-post').on('click', function (e) {
+				Sammy(function () {
+					this.trigger('redirectUrl', {url: '#/addPost'})
 				})
 			})
 		})
+	};
+
+	UserViews.prototype.showUserControls = function (selector, isLogged) {
+		if (isLogged) {
+			$.get('templates/user-logged.html', function (templ) {
+				$(selector).html(templ);
+				$('#button-logout').on('click', function (e) {
+					Sammy(function () {
+						this.trigger('logout');
+						this.trigger('redirectUrl', {url: '#/'});
+					})
+				})
+			})
+		} else {
+			$.get('templates/user-not-logged.html', function (templ) {
+				$(selector).html(templ);
+			})
+		}
 	};
 
 	return UserViews;

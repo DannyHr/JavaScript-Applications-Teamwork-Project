@@ -4,7 +4,8 @@ var app = app || {};
 	app.router = Sammy(function () {
 		var sideBar = '#all-posts',
 			mainContainer = '#main-container',
-			addNewPostSelector = 'main>section>nav';
+			addNewPostSelector = 'main>section>nav',
+			userFieldSelector = '#user-field';
 
 		var requester = new app.ajaxRequester();
 		var authorizer = new app.authorizer('kid_-19uDdP4y-', '0fe0766a2dd747639ab970bf02ee732b');
@@ -20,9 +21,8 @@ var app = app || {};
 
 		(function () {
 			userController.checkIsAdmin();
-			userController.homePage();
 			postController.showAllPosts(sideBar);
-			postController.SearchInPosts();
+			userController.showUserControls(userFieldSelector);
 		})();
 
 		this.get('#/', function () {
@@ -31,6 +31,21 @@ var app = app || {};
 
 		this.get('#/addPost', function () {
 			postController.showAddPost(mainContainer);
+		});
+
+		this.get('#/login', function () {
+			userController.showLoginPage(mainContainer);
+		});
+
+		this.get('#/register', function () {
+			userController.showRegisterPage(mainContainer);
+		});
+
+		this.get('#/post', function () {
+			$('#main-container').empty();
+			var urlQueryVars = app.helpers.getUrlVars();
+
+			postController.showPostPageById(mainContainer, urlQueryVars['id']);
 		});
 
 		this.bind('addPost', function (e, data) {
@@ -53,23 +68,8 @@ var app = app || {};
 			this.redirect(data.url);
 		});
 
-		this.get('#/login', function () {
-			userController.showLoginPage(mainContainer);
-		});
-
-		this.get('#/logout', function () {
+		this.bind('logout', function (e) {
 			userController.logout();
-		});
-
-		this.get('#/register', function () {
-			userController.showRegisterPage(mainContainer);
-		});
-
-		this.get('#/post', function () {
-			$('#main-container').empty();
-			var urlQueryVars = app.helpers.getUrlVars();
-
-			postController.showPostPageById(mainContainer, urlQueryVars['id']);
 		});
 	});
 

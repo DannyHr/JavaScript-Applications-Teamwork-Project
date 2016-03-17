@@ -12,12 +12,11 @@ app.userModel = (function () {
 	};
 
 	UserModel.prototype.register = function (data) {
-
 		return this._requester.post(this.serviceUrl, data, this._authorizer.getHeaders(true));
 	};
 
 	UserModel.prototype.editProfile = function () {
-		//TODO: IMPLEMENT ME
+		//TODO: Implement
 	};
 
 	UserModel.prototype.getById = function (id) {

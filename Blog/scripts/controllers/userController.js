@@ -6,8 +6,9 @@ app.userController = (function () {
 		this._viewBag = viewBag;
 		this._authorizer = authorizer;
 	}
+
 	UserController.prototype.homePage = function () {
-		$.get('templates/notLoggedUser.html', function (templ) {
+		$.get('templates/user-not-logged.html', function (templ) {
 			$('#user-field').html(templ);
 		});
 	};
@@ -96,8 +97,6 @@ app.userController = (function () {
 			.then(
 				function (response) {
 					console.log("Successfully checked if user is admin");
-					//console.log(response);
-					
 					if (response['permission_level'] === 1) {
 						Sammy(function () {
 							this.trigger('isAdmin');
@@ -120,6 +119,11 @@ app.userController = (function () {
 
 	UserController.prototype.showAddNewPost = function (selector) {
 		this._viewBag.showAddNewPost(selector);
+	};
+
+	UserController.prototype.showUserControls = function (selector) {
+		var isLogged = this._authorizer.getSessionToken() || false;
+		this._viewBag.showUserControls(selector, isLogged);
 	};
 
 	return UserController;
